@@ -1,0 +1,26 @@
+
+
+docker run -di -v /home:/home --name=nginx_tfhub -p 85:80 nginx 
+
+# 复制配置文件，你检查一下我的配置。注意你哪里没写对
+
+docker cp nginx.conf nginx_tfhub:/etc/nginx/nginx.conf 
+
+# 重启容器让配置生效
+
+docker restart nginx_tfhub
+
+
+
+
+docker run -di -v /home/MyTFHub:/home/MyTFHub --name=tfhub -p 5004:5003 docker.io/conda/miniconda3
+
+docker exec -it tfhub /bin/bash
+
+conda create -n rcnn python=3.7
+
+source activate rcnn 
+
+conda install tensorflow=2.1 tensorflow-hub matplotlib pillow flask
+
+nohup python app_server.py >my.log &
