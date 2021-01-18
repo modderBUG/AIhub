@@ -203,9 +203,9 @@ if __name__ == '__main__':
     print(platform.system().lower())
     CORS(app, resources=r'/*')
     if os.path.exists(conf.get('ssl', 'pem')) and os.path.exists(conf.get('ssl', 'key')):
-        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],static_url_path=conf.get("app","static_url_path"),
+        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],static_url_path="",
                 threaded=True)  # app.run(0.0.0.0, 8000, debug, options)
     else:
         logger.warning("server start without SSL !")
-        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],
+        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],static_url_path="",
                 threaded=True)  # app.run(0.0.0.0, 8000, debug, options)
