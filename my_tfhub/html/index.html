@@ -5,15 +5,11 @@
     <title>Title</title>
 </head>
 <body>
-    <table>
+    <ul>
     {% for item in seq %}
-        <tr>
-             <th>
-                 <a href = {{ item }} >{{ item }}</a>
-            </th>
-        </tr>
+        <li>{{ item }}</li>
     {% endfor %}
-    </table>
+    </ul>
 
 </body>
 </html>

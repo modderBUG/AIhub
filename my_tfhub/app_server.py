@@ -194,18 +194,29 @@ def hello_world():
     return Response(response="backend started success ! ", status=200, mimetype="application/json")
 
 
+@app.route('/share')
+def share_file():
+    l = os.listdir('static')
+    s = []
+    for i in l:
+        s.append("http://" + conf.SERVER_CONFIG['host'] + ":" + conf.SERVER_CONFIG['port'] + '/static/' + i)
+    # return Response(response=s, status=200, mimetype="application/json")
+
+    return render_template('html/index.html', seq=s,name=l)
+
+
 @app.route('/test')
 def hello_world2():
-    return render_template('html/index.html')
+    return render_template('html/index_old.html')
 
 
 if __name__ == '__main__':
     print(platform.system().lower())
     CORS(app, resources=r'/*')
     if os.path.exists(conf.get('ssl', 'pem')) and os.path.exists(conf.get('ssl', 'key')):
-        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],static_url_path="",
+        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],
                 threaded=True)  # app.run(0.0.0.0, 8000, debug, options)
     else:
         logger.warning("server start without SSL !")
-        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],static_url_path="",
+        app.run(host=conf.SERVER_CONFIG['host'], port=conf.SERVER_CONFIG['port'],
                 threaded=True)  # app.run(0.0.0.0, 8000, debug, options)
